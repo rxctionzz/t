@@ -71,7 +71,7 @@ d3.json("http://wafi.iit.cnr.it/webvis/tmp/schema.org.json", function(error, roo
         sum += getSize(c);
       });
       
-      d.size = 1 + sum;
+      d.size = sum;
       return d.size;
     }
     
