@@ -1,1 +1,1 @@
--
+- danbri edit to try using http://schema.org/docs/tree.jsonld instead of http://wafi.iit.cnr.it/webvis/tmp/schema.org.json

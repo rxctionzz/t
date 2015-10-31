@@ -54,7 +54,7 @@ getColor = function(d) {
 drawLegend();
 thousand_sep_format = d3.format(',');
 
-d3.json("http://wafi.iit.cnr.it/webvis/tmp/schema.org.json", function(error, root) {
+d3.json("http://schema.org/docs/tree.jsonld", function(error, root) {
   
   getSize(root);
   
