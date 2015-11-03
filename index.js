@@ -1,7 +1,8 @@
 var width = 960,
     height = 600,
     radius = Math.min(width, height) / 2,
-    colors = {'Person': '#E14E5F', 'Organization': '#A87621', 'Place': '#43943E', 'CreativeWork': '#AC5CC4', 'Species': '#2E99A0', 'Event': '#2986EC'},
+    colors = {'Person': '#E14E5F', 'Organization': '#A87621', 'Place': '#43943E', 'CreativeWork': '#AC5CC4', 'Intangible': '#2E99A0',
+    'Action': '#2986EC', 'MedicalEntity': '#999900', 'Event': '#ffdd55'  },
     colorOpacity = 0.7;
 
 var svg = d3.select("body").append("svg")
@@ -54,30 +55,34 @@ getColor = function(d) {
 drawLegend();
 thousand_sep_format = d3.format(',');
 
-d3.json("http://schema.org/docs/tree.jsonld", function(error, root) {
-  
+du = 'http://schema.org/docs/tree.jsonld'
+//du = 'http://wafi.iit.cnr.it/webvis/tmp/schema.org.json' // http://bl.ocks.org/fabiovalse/63fba792a7922d03243a
+d3.json(du, function(error, root) {
+
   getSize(root);
-  
-  root = {"name": root.name, "size": root.size, "children": [root]};
-  
-  function getSize(d) {
-    if (d.children.length === 0) {
-      d.size = 1;
-      return 1;
-    } else {
-      var sum = 0;
-      
-      d.children.forEach(function(c) {
-        sum += getSize(c);
-      });
-      
-      d.size = sum;
-      return d.size;
+//  console.log("getsize of " + root["name"]);
+
+root = {"name": root.name, "size": root.size, "children": [root]};
+
+function getSize(d) {
+  if (d["children"] &&  d.children.length === 0) {
+    d.size = 1;
+    return 1;
+  } else if (!d["children"]) { // e.g. SomeProducts, no children.
+    d.size = 1;           // other code had children=[] in this case
+    return 1;
+  } else {
+    // console.log("Else: "+d["name"] + d["children"])
+    var sum = 0;
+    if (d.children) {
+      d.children.forEach(function(c) { sum += getSize(c); });
     }
-    
-    return d;
+    d.size = sum;
+    return d.size;
   }
-  
+  return d;
+}
+
   var path = svg.datum(root).selectAll("path")
       .data(partition.nodes)
     .enter().append("path")
@@ -88,19 +93,19 @@ d3.json("http://schema.org/docs/tree.jsonld", function(error, root) {
       .style("opacity", colorOpacity)
       .on("mouseover", mouseover)
       .on("mouseout", mouseout);
-  
+
   function mouseover(d) {
     var percentage = (100 * d.size / root.size).toPrecision(3);
     text.html("<tspan style='font-size: 30px' x=0 dy='-20'>" + thousand_sep_format(d.size) + "</tspan><tspan style='font-size: 15px' x=0 dy='25'>" + d.name + "</tspan><tspan style='font-size: 30px' x=0 dy='35'>" + percentage + "%</tspan>");
-    
+
     d3.selectAll("path")
       .filter(function(d1) { return d === d1; })
       .style("opacity", 0.5);
   }
-  
+
   function mouseout(d) {
     text.html("");
-    
+
     d3.selectAll("path")
       .filter(function(d1) { return d === d1; })
       .style("opacity", colorOpacity);
