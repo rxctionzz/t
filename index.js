@@ -137,6 +137,7 @@ function drawLegend() {
       .attr("ry", li.r)
       .attr("width", li.w)
       .attr("height", li.h)
+      .attr("class", d["layer"]) // danbri todo, style core vs auto vs bib ?
       .style("opacity", colorOpacity)
       .style("fill", function(d) { return d.value; });
 
