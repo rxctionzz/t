@@ -146,7 +146,6 @@ function drawLegend() {
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
       .classed("legendItem", true)
-      .classed( function(d) { return d.layer; }, true );
-
+      .classed( function(d) { return d.layer; }, true )
       .text(function(d) { return d.key; });
 }
