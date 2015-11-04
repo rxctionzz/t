@@ -137,7 +137,6 @@ function drawLegend() {
       .attr("ry", li.r)
       .attr("width", li.w)
       .attr("height", li.h)
-      .attr("class", d["layer"]) // danbri todo, style core vs auto vs bib ?
       .style("opacity", colorOpacity)
       .style("fill", function(d) { return d.value; });
 
@@ -147,5 +146,7 @@ function drawLegend() {
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
       .classed("legendItem", true)
+      .attr("class", function(d) { return d["layer"] } ) // danbri todo, style core vs auto vs bib ?
+
       .text(function(d) { return d.key; });
 }
