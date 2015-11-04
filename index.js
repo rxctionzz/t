@@ -146,7 +146,5 @@ function drawLegend() {
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
       .classed("legendItem", true)
-      .attr("class", function(d) { return d["layer"] } ) // danbri todo, style core vs auto vs bib ?
-
       .text(function(d) { return d.key; });
 }
