@@ -140,13 +140,13 @@ function drawLegend() {
       .style("opacity", colorOpacity)
       .style("fill", function(d) { return d.value; });
 
-  layer = function(d) { return d["layer"]; }
+  //layer = function(d) { return d["layer"]; }
   g.append("svg:text")
       .attr("x", li.w / 2)
       .attr("y", li.h / 2)
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
       .classed("legendItem", true)
-      .classed( , true )
+      .classed( "layertodo" , true )
       .text(function(d) { layer, return d.key; });
 }
