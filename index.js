@@ -55,9 +55,9 @@ getColor = function(d) {
 drawLegend();
 thousand_sep_format = d3.format(',');
 
-//du = 'http://schema.org/docs/tree.jsonld'
-du = 'http://sdo-phobos.appspot.com/docs/tree.jsonld'
-//du = 'http://wafi.iit.cnr.it/webvis/tmp/schema.org.json' // http://bl.ocks.org/fabiovalse/63fba792a7922d03243a
+du = 'http://schema.org/docs/tree.jsonld'
+// du = 'http://sdo-phobos.appspot.com/docs/tree.jsonld'
+// du = 'http://wafi.iit.cnr.it/webvis/tmp/schema.org.json' // http://bl.ocks.org/fabiovalse/63fba792a7922d03243a
 d3.json(du, function(error, root) {
 
   getSize(root);
